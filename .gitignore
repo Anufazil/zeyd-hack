@@ -1,0 +1,6 @@
+node_modules
+dist
+private
+backend/hashes.json
+backend/.env
+.env

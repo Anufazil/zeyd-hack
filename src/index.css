@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { background: #050807; color: #DCE5DF; font-family: Inter, system-ui, sans-serif; overflow-x: hidden; }
+::selection { background: #00FF8844; }
+*:focus-visible { outline: 1px solid #00FF88; outline-offset: 2px; }
+
+.scanlines::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.18) 3px);
+  opacity: .5;
+}
+.cursor::after { content: '\2588'; margin-left: 2px; color: #00FF88; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.glitch { animation: glitch .35s steps(2) 1; }
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: none; }
+  25% { transform: translate(-2px, 1px); text-shadow: 2px 0 #FF4444, -2px 0 #00FF88; }
+  60% { transform: translate(2px, -1px); text-shadow: -2px 0 #FF4444, 2px 0 #00FF88; }
+  100% { transform: translate(0); text-shadow: none; }
+}
+.thin-scroll { scrollbar-width: thin; scrollbar-color: #193126 transparent; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Data wall (start screen) */
+.wall-hit { cursor: pointer; border: 0; margin: 0; }
+.wall-hit::before { content: ''; position: absolute; inset: -6px -4px; }
+.wall-hit:hover { text-decoration: underline; text-underline-offset: 3px; }
+.wall-hit:focus-visible { outline: 1px dashed #00FF88; outline-offset: 2px; }
+.wall-flick { animation: wallflick 7s steps(1) infinite; }
+@keyframes wallflick { 0%, 87%, 100% { opacity: var(--o); } 89% { opacity: .08; } 92% { opacity: var(--o); } 95% { opacity: .85; } }
+.wall-sweep { position: absolute; left: 0; right: 0; top: -30%; height: 30%; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 136, .06), transparent); animation: sweep 11s linear infinite; }
+@keyframes sweep { to { transform: translateY(440%); } }
+@media (prefers-reduced-motion: reduce) { .wall-flick, .wall-sweep { animation: none !important; } }

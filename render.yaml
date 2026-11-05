@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: zeyd-hack-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: CLIENT_ORIGIN
+        sync: false        # your Vercel URL, e.g. https://zeyd-hack.vercel.app
+      - key: PEPPER
+        sync: false        # long random secret; must match the one used for hashes.json
+      - key: MONGODB_URI
+        sync: false        # MongoDB Atlas connection string
